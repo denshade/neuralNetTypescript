@@ -4,12 +4,93 @@
     <meta charset="UTF-8">
     <title>Neural network runner</title>
     <script src="ts/nn.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-Neural network definition json file.
-Neural network input json file.
 
-<script>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <img src="http://placehold.it/150x50?text=Logo" alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+<!-- /.container -->
+    <H1>Neural network player</H1>
+    <div class="card text-white bg-primary mb-3" style="max-width: 100%;">
+        <div class="card-header">Neural network definition</div>
+        <div class="card-body">
+            <p class="card-text">Please select a neural network file or select an example. (i) </p>
+            <select class="form-control" ><option disabled selected value>-- select an option --</option><option value="xor">XOR example</option></select> <br/>
+            <button class="btn-primary">Load</button>
+        </div>
+    </div>
+
+    <div class="card text-white bg-info mb-3" style="max-width: 100%;">
+        <div class="card-header">Neural network visualisation.</div>
+        <div class="card-body">
+            <p class="card-text">Here comes a visual representation of the neural network</p>
+        </div>
+    </div>
+    <div class="card" style="width: 100%;">
+        <div class="card-body">
+            <h5 class="card-title">Neural network input.</h5>
+            <p class="card-text">
+            <table class="table">
+                <thead>
+                    <th>name</th><th>input</th>
+                </thead>
+                <tbody>
+                    <tr><td>Xor 1</td><td><input class="form-control" type="number" value="1"/></td></tr>
+                    <tr><td>Xor 2</td><td><input class="form-control" type="number" value="0"/></td></tr>
+                </tbody>
+            </table>
+            </p>
+            <p>
+                <button class="btn-primary">Run</button>
+            </p>
+            <table class="table">
+                <thead>
+                <th>name</th><th>input</th>
+                </thead>
+                <tbody>
+                    <tr><td>Result of XOR</td><td><input class="form-control" type="number"/></td></tr>
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
+
+
+    <script>
     let val = nn([0, 0], {
             unitsPerLayer: [2, 2, 1],
             layer0: {
@@ -79,6 +160,7 @@ Neural network input json file.
     }
 
 </script>
+</div>
 
 </body>
 </html>
