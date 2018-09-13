@@ -53,8 +53,26 @@ function runSelectedNetwork()
     out1.value = val[0]+"";
 }
 
-function redraw(canvasid)
+function redrawNN(canvasid)
 {
-    let canvas = <HTMLInputElement>document.getElementById(canvasid);
-
+    let canvas = document.getElementById(canvasid) as HTMLCanvasElement;
+    let neuralnetworkElement = document.getElementById("neuralnetwork")as HTMLSelectElement;
+    let jsonDescription = neuralnetworkElement.options[neuralnetworkElement.selectedIndex].getAttribute("description");
+    let network = JSON.parse(jsonDescription);
+    let context = canvas.getContext("2d");
+    let x = 100;
+    for (let entry of network.unitsPerLayer)
+    {
+        let y = 20;
+        for (let i = 0; i < entry; i++)
+        {
+            y+= 20;
+            context.beginPath();
+            context.arc(x, y, 5, 0, 2*Math.PI);
+            context.restore();
+            context.fillStyle = "FFFFFF";
+            context.stroke();
+        }
+        x += 50;
+    }
 }

@@ -39,7 +39,25 @@ function runSelectedNetwork() {
     var out1 = document.getElementById("out1");
     out1.value = val[0] + "";
 }
-function redraw(canvasid) {
+function redrawNN(canvasid) {
     var canvas = document.getElementById(canvasid);
+    var neuralnetworkElement = document.getElementById("neuralnetwork");
+    var jsonDescription = neuralnetworkElement.options[neuralnetworkElement.selectedIndex].getAttribute("description");
+    var network = JSON.parse(jsonDescription);
+    var context = canvas.getContext("2d");
+    var x = 100;
+    for (var _i = 0, _a = network.unitsPerLayer; _i < _a.length; _i++) {
+        var entry = _a[_i];
+        var y = 20;
+        for (var i = 0; i < entry; i++) {
+            y += 20;
+            context.beginPath();
+            context.arc(x, y, 5, 0, 2 * Math.PI);
+            context.restore();
+            context.fillStyle = "FFFFFF";
+            context.stroke();
+        }
+        x += 50;
+    }
 }
 //# sourceMappingURL=nn.js.map
