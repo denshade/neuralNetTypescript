@@ -39,3 +39,22 @@ function activation(t : number)
 {
     return 1/(1+Math.pow(Math.E, -t));
 }
+
+function runSelectedNetwork()
+{
+    let el1 = <HTMLInputElement>document.getElementById("input1");
+    let el2 = <HTMLInputElement>document.getElementById("input2");
+    let neuralnetworkElement = document.getElementById("neuralnetwork") as HTMLSelectElement;
+    let jsonDescription = neuralnetworkElement.options[neuralnetworkElement.selectedIndex].getAttribute("description");
+    let network = JSON.parse(jsonDescription);
+    let val = nn([el1.valueAsNumber, el2.valueAsNumber], network);
+
+    let out1 = <HTMLInputElement>document.getElementById("out1");
+    out1.value = val[0]+"";
+}
+
+function redraw(canvasid)
+{
+    let canvas = <HTMLInputElement>document.getElementById(canvasid);
+
+}

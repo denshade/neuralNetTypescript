@@ -48,15 +48,25 @@
         <div class="card-header">Neural network definition</div>
         <div class="card-body">
             <p class="card-text">Please select a neural network file or select an example. (i) </p>
-            <select class="form-control" ><option disabled selected value>-- select an option --</option><option value="xor">XOR example</option></select> <br/>
-            <button class="btn-primary">Load</button>
+            <select onchange="redrawNN('visualnetwork');" id="neuralnetwork" class="form-control" ><option disabled selected value>-- select an option --</option><option description='{
+            "unitsPerLayer": [2, 2, 1],
+            "layer0": {
+                "weights": [[20, 20], [-20, -20]],
+                "biasPerUnit": [-10, 30]
+            },
+            "layer1": {
+                "weights": [[20, 20]],
+                "biasPerUnit": [-30]
+            }
+        }' value="xor">XOR example</option></select> <br/>
+            <!--button class="btn-primary">Load</button-->
         </div>
     </div>
 
     <div class="card text-white bg-info mb-3" style="max-width: 100%;">
         <div class="card-header">Neural network visualisation.</div>
         <div class="card-body">
-            <p class="card-text">Here comes a visual representation of the neural network</p>
+            <p class="card-text"><canvas id="visualnetwork"></canvas></p>
         </div>
     </div>
     <div class="card" style="width: 100%;">
@@ -68,20 +78,20 @@
                     <th>name</th><th>input</th>
                 </thead>
                 <tbody>
-                    <tr><td>Xor 1</td><td><input class="form-control" type="number" value="1"/></td></tr>
-                    <tr><td>Xor 2</td><td><input class="form-control" type="number" value="0"/></td></tr>
+                    <tr><td>Xor 1</td><td><input id="input1" class="form-control" type="number" value="1"/></td></tr>
+                    <tr><td>Xor 2</td><td><input id="input2" class="form-control" type="number" value="0"/></td></tr>
                 </tbody>
             </table>
             </p>
             <p>
-                <button class="btn-primary">Run</button>
+                <button class="btn-primary" onclick="runSelectedNetwork();">Run</button>
             </p>
             <table class="table">
                 <thead>
                 <th>name</th><th>input</th>
                 </thead>
                 <tbody>
-                    <tr><td>Result of XOR</td><td><input class="form-control" type="number"/></td></tr>
+                    <tr><td>Result of XOR</td><td><input id="out1" class="form-control" type="number"/></td></tr>
                 </tbody>
             </table>
 
@@ -90,76 +100,6 @@
     </div>
 
 
-    <script>
-    let val = nn([0, 0], {
-            unitsPerLayer: [2, 2, 1],
-            layer0: {
-                weights: [[20, 20], [-20, -20]],
-                biasPerUnit: [-10, 30]
-            },
-            layer1: {
-                weights: [[20, 20]],
-                biasPerUnit: [-30]
-            }
-        }
-    );
-    document.writeln("The solution for 0 xor 0 ");
-    for (let l = 0; l < val.length; l++) {
-        document.write(val[l]);
-    }
-
-    val = nn([0, 1], {
-            unitsPerLayer: [2, 2, 1],
-            layer0: {
-                weights: [[20, 20], [-20, -20]],
-                biasPerUnit: [-10, 30]
-            },
-            layer1: {
-                weights: [[20, 20]],
-                biasPerUnit: [-30]
-            }
-        }
-    );
-    document.writeln("The solution for 0 xor 1 ");
-    for (let l = 0; l < val.length; l++) {
-        document.write(val[l]);
-    }
-
-    val = nn([1, 0], {
-            unitsPerLayer: [2, 2, 1],
-            layer0: {
-                weights: [[20, 20], [-20, -20]],
-                biasPerUnit: [-10, 30]
-            },
-            layer1: {
-                weights: [[20, 20]],
-                biasPerUnit: [-30]
-            }
-        }
-    );
-    document.writeln("The solution for 1 xor 0 ");
-    for (let l = 0; l < val.length; l++) {
-        document.write(val[l]);
-    }
-
-    val = nn([1, 1], {
-            unitsPerLayer: [2, 2, 1],
-            layer0: {
-                weights: [[20, 20], [-20, -20]],
-                biasPerUnit: [-10, 30]
-            },
-            layer1: {
-                weights: [[20, 20]],
-                biasPerUnit: [-30]
-            }
-        }
-    );
-    document.writeln("The solution for 1 xor 1 ");
-    for (let l = 0; l < val.length; l++) {
-        document.write(val[l]);
-    }
-
-</script>
 </div>
 
 </body>

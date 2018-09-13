@@ -29,4 +29,17 @@ function nn(input, network) {
 function activation(t) {
     return 1 / (1 + Math.pow(Math.E, -t));
 }
+function runSelectedNetwork() {
+    var el1 = document.getElementById("input1");
+    var el2 = document.getElementById("input2");
+    var neuralnetworkElement = document.getElementById("neuralnetwork");
+    var jsonDescription = neuralnetworkElement.options[neuralnetworkElement.selectedIndex].getAttribute("description");
+    var network = JSON.parse(jsonDescription);
+    var val = nn([el1.valueAsNumber, el2.valueAsNumber], network);
+    var out1 = document.getElementById("out1");
+    out1.value = val[0] + "";
+}
+function redraw(canvasid) {
+    var canvas = document.getElementById(canvasid);
+}
 //# sourceMappingURL=nn.js.map
