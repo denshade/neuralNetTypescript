@@ -52,11 +52,16 @@ function sigmoid(t : number)
 
 function runSelectedNetwork()
 {
-    let el1 = <HTMLInputElement>document.getElementById("input1");
-    let el2 = <HTMLInputElement>document.getElementById("input2");
     let neuralnetworkElement = document.getElementById("neuralnetwork") as HTMLSelectElement;
     let url = neuralnetworkElement.options[neuralnetworkElement.selectedIndex].getAttribute("url");
-    let jsonDescription = this.http.get(url);
+    getJsonFromUrl(url, runNetworkFile, null);
+}
+
+function runNetworkFile(jsonDescription : string)
+{
+    let el1 = <HTMLInputElement>document.getElementById("input1");
+    let el2 = <HTMLInputElement>document.getElementById("input2");
+
     let network = JSON.parse(jsonDescription);
     let val = nn([el1.valueAsNumber, el2.valueAsNumber], network);
 
@@ -64,14 +69,14 @@ function runSelectedNetwork()
     out1.value = val[0]+"";
 }
 
-function getJsonFromUrl(file: string, callback:any)
+function getJsonFromUrl(file: string, callback:any, canvas : HTMLCanvasElement)
 {
-    var rawFile = new XMLHttpRequest();
+    let rawFile = new XMLHttpRequest();
     rawFile.overrideMimeType("application/json");
     rawFile.open("GET", file, true);
     rawFile.onreadystatechange = function() {
         if (rawFile.readyState === 4 && rawFile.status == 200) {
-            callback(rawFile.responseText);
+            callback(rawFile.responseText, canvas);
 
         }
     }
@@ -82,11 +87,12 @@ function redrawNN(canvasid)
     let canvas = document.getElementById(canvasid) as HTMLCanvasElement;
     let neuralnetworkElement = document.getElementById("neuralnetwork")as HTMLSelectElement;
     let url = neuralnetworkElement.options[neuralnetworkElement.selectedIndex].getAttribute("url");
+    getJsonFromUrl(url, draw, canvas);
 }
 
-function draw()
+function draw(rawtext : string, canvas : HTMLCanvasElement)
 {
-    let network = JSON.parse(jsonDescription);
+    let network = JSON.parse(rawtext);
     let context = canvas.getContext("2d");
     let x = 100;
     for (let entry of network.unitsPerLayer)
