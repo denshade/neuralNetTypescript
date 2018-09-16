@@ -20,29 +20,49 @@ function nn(input, network) {
             }
         }
         for (var k = 0; k < currentActivation.length; k++) {
-            currentActivation[k] = activation(currentActivation[k] + currentbiasPerUnit[k]);
+            currentActivation[k] = tanhActivation(currentActivation[k] + currentbiasPerUnit[k]);
         }
         previousActivation = currentActivation.slice();
     }
     return currentActivation;
 }
-function activation(t) {
+function tanhActivation(t) {
     return 1 / (1 + Math.pow(Math.E, -t));
+}
+function relu(t) {
+    return Math.max(0, t);
+}
+function sigmoid(t) {
+    return Math.max(0, t);
 }
 function runSelectedNetwork() {
     var el1 = document.getElementById("input1");
     var el2 = document.getElementById("input2");
     var neuralnetworkElement = document.getElementById("neuralnetwork");
-    var jsonDescription = neuralnetworkElement.options[neuralnetworkElement.selectedIndex].getAttribute("description");
+    var url = neuralnetworkElement.options[neuralnetworkElement.selectedIndex].getAttribute("url");
+    var jsonDescription = this.http.get(url);
     var network = JSON.parse(jsonDescription);
     var val = nn([el1.valueAsNumber, el2.valueAsNumber], network);
     var out1 = document.getElementById("out1");
     out1.value = val[0] + "";
 }
+function getJsonFromUrl(file, callback) {
+    var rawFile = new XMLHttpRequest();
+    rawFile.overrideMimeType("application/json");
+    rawFile.open("GET", file, true);
+    rawFile.onreadystatechange = function () {
+        if (rawFile.readyState === 4 && rawFile.status == 200) {
+            callback(rawFile.responseText);
+        }
+    };
+    rawFile.send(null);
+}
 function redrawNN(canvasid) {
     var canvas = document.getElementById(canvasid);
     var neuralnetworkElement = document.getElementById("neuralnetwork");
-    var jsonDescription = neuralnetworkElement.options[neuralnetworkElement.selectedIndex].getAttribute("description");
+    var url = neuralnetworkElement.options[neuralnetworkElement.selectedIndex].getAttribute("url");
+}
+function draw() {
     var network = JSON.parse(jsonDescription);
     var context = canvas.getContext("2d");
     var x = 100;
