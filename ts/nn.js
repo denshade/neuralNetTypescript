@@ -20,7 +20,18 @@ function nn(input, network) {
             }
         }
         for (var k = 0; k < currentActivation.length; k++) {
-            currentActivation[k] = tanhActivation(currentActivation[k] + currentbiasPerUnit[k]);
+            switch (currentLayer.activation) {
+                case "tanh":
+                    currentActivation[k] = tanhActivation(currentActivation[k] + currentbiasPerUnit[k]);
+                    break;
+                case "relu":
+                    currentActivation[k] = relu(currentActivation[k] + currentbiasPerUnit[k]);
+                    break;
+                case "sigmoid":
+                    currentActivation[k] = sigmoid(currentActivation[k] + currentbiasPerUnit[k]);
+                    break;
+                default: throw "Unknown activation function " + currentLayer.activation;
+            }
         }
         previousActivation = currentActivation.slice();
     }

@@ -2,10 +2,12 @@
   "unitsPerLayer": [2, 2, 1],
   "layer0": {
     "weights": [[20, 20], [-20, -20]],
-    "biasPerUnit": [-10, 30]
+    "biasPerUnit": [-10, 30],
+    "activation" : "sigmoid"
   },
   "layer1": {
     "weights": [[20, 20]],
-    "biasPerUnit": [-30]
+    "biasPerUnit": [-30],
+    "activation" : "sigmoid"
   }
 }
