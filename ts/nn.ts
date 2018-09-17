@@ -104,17 +104,34 @@ function draw(rawtext : string, canvas : HTMLCanvasElement)
     let network = JSON.parse(rawtext);
     let context = canvas.getContext("2d");
     let x = 100;
-    for (let entry of network.unitsPerLayer)
+    for (let entrycounter = 0; entrycounter < network.unitsPerLayer.length; entrycounter++)
     {
-        let y = 20;
-        for (let i = 0; i < entry; i++)
+        let neuronCount = network.unitsPerLayer[entrycounter];
+
+        let nextNeuronCount = null;
+        if (entrycounter + 1 < network.unitsPerLayer.length)
         {
-            y+= 20;
+            nextNeuronCount = network.unitsPerLayer[entrycounter + 1];
+        }
+        let y = 20;
+        for (let currentNeuron = 0; currentNeuron < neuronCount; currentNeuron++)
+        {
+            y += 20;
             context.beginPath();
             context.arc(x, y, 5, 0, 2*Math.PI);
             context.restore();
             context.fillStyle = "FFFFFF";
             context.stroke();
+            let nextY = 20;
+            for (let nextNeuron = 0; nextNeuron < nextNeuronCount; nextNeuron++)
+            {
+                nextY += 20;
+                context.beginPath();
+                context.moveTo(x,y);
+                context.lineTo(x + 50, nextY);
+                context.stroke();
+            }
+
         }
         x += 50;
     }

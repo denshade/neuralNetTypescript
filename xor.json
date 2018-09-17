@@ -3,11 +3,11 @@
   "layer0": {
     "weights": [[20, 20], [-20, -20]],
     "biasPerUnit": [-10, 30],
-    "activation" : "sigmoid"
+    "activation" : "tanh"
   },
   "layer1": {
     "weights": [[20, 20]],
     "biasPerUnit": [-30],
-    "activation" : "sigmoid"
+    "activation" : "tanh"
   }
 }

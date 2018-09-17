@@ -80,16 +80,28 @@ function draw(rawtext, canvas) {
     var network = JSON.parse(rawtext);
     var context = canvas.getContext("2d");
     var x = 100;
-    for (var _i = 0, _a = network.unitsPerLayer; _i < _a.length; _i++) {
-        var entry = _a[_i];
+    for (var entrycounter = 0; entrycounter < network.unitsPerLayer.length; entrycounter++) {
+        var neuronCount = network.unitsPerLayer[entrycounter];
+        var nextNeuronCount = null;
+        if (entrycounter + 1 < network.unitsPerLayer.length) {
+            nextNeuronCount = network.unitsPerLayer[entrycounter + 1];
+        }
         var y = 20;
-        for (var i = 0; i < entry; i++) {
+        for (var currentNeuron = 0; currentNeuron < neuronCount; currentNeuron++) {
             y += 20;
             context.beginPath();
             context.arc(x, y, 5, 0, 2 * Math.PI);
             context.restore();
             context.fillStyle = "FFFFFF";
             context.stroke();
+            var nextY = 20;
+            for (var nextNeuron = 0; nextNeuron < nextNeuronCount; nextNeuron++) {
+                nextY += 20;
+                context.beginPath();
+                context.moveTo(x, y);
+                context.lineTo(x + 50, nextY);
+                context.stroke();
+            }
         }
         x += 50;
     }
