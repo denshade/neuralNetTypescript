@@ -79,6 +79,13 @@ function redrawNN(canvasid) {
 function draw(rawtext, canvas) {
     var network = JSON.parse(rawtext);
     var context = canvas.getContext("2d");
+    var max = 0;
+    for (var _i = 0, _a = network.unitsPerLayer; _i < _a.length; _i++) {
+        var entry = _a[_i];
+        max = Math.max(entry, max);
+    }
+    var ystep = 10;
+    canvas.height = 100 + max * ystep;
     var x = 100;
     for (var entrycounter = 0; entrycounter < network.unitsPerLayer.length; entrycounter++) {
         var neuronCount = network.unitsPerLayer[entrycounter];
@@ -86,17 +93,17 @@ function draw(rawtext, canvas) {
         if (entrycounter + 1 < network.unitsPerLayer.length) {
             nextNeuronCount = network.unitsPerLayer[entrycounter + 1];
         }
-        var y = 20;
+        var y = ystep;
         for (var currentNeuron = 0; currentNeuron < neuronCount; currentNeuron++) {
-            y += 20;
+            y += ystep;
             context.beginPath();
-            context.arc(x, y, 5, 0, 2 * Math.PI);
+            context.arc(x, y, 2, 0, 2 * Math.PI);
             context.restore();
             context.fillStyle = "FFFFFF";
             context.stroke();
-            var nextY = 20;
+            var nextY = ystep;
             for (var nextNeuron = 0; nextNeuron < nextNeuronCount; nextNeuron++) {
-                nextY += 20;
+                nextY += ystep;
                 context.beginPath();
                 context.moveTo(x, y);
                 context.lineTo(x + 50, nextY);

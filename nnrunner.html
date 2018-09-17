@@ -49,7 +49,10 @@
         <div class="card-header">Neural network definition</div>
         <div class="card-body">
             <p class="card-text">Please select a neural network file or select an example. (i) </p>
-            <select onchange="redrawNN('visualnetwork');" id="neuralnetwork" class="form-control" ><option disabled selected value>-- select an option --</option><option url="xor.json" value="xor">XOR example</option></select> <br/>
+            <select onchange="redrawNN('visualnetwork');" id="neuralnetwork" class="form-control" ><option disabled selected value>-- select an option --</option>
+                <option url="xor.json" value="xor">XOR example</option>
+                <option url="MLPMnistSingleLayer.json" value="MLPMnistSingleLayer">MLP Mnist Single Layer</option>
+            </select> <br/>
         </div>
     </div>
 

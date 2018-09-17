@@ -1,0 +1,13 @@
+{
+  "unitsPerLayer": [784, 1000, 10],
+  "layer0": {
+    "weights": [[20, 20], [-20, -20]],
+    "biasPerUnit": [-10, 30],
+    "activation" : "relu"
+  },
+  "layer1": {
+    "weights": [[20, 20]],
+    "biasPerUnit": [-30],
+    "activation" : "softmax"
+  }
+}

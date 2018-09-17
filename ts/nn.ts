@@ -103,6 +103,14 @@ function draw(rawtext : string, canvas : HTMLCanvasElement)
 {
     let network = JSON.parse(rawtext);
     let context = canvas.getContext("2d");
+    let max = 0;
+    for (let entry of network.unitsPerLayer)
+    {
+        max = Math.max(entry, max);
+    }
+    let ystep = 10;
+    canvas.height = 100 + max * ystep;
+
     let x = 100;
     for (let entrycounter = 0; entrycounter < network.unitsPerLayer.length; entrycounter++)
     {
@@ -113,19 +121,19 @@ function draw(rawtext : string, canvas : HTMLCanvasElement)
         {
             nextNeuronCount = network.unitsPerLayer[entrycounter + 1];
         }
-        let y = 20;
+        let y = ystep;
         for (let currentNeuron = 0; currentNeuron < neuronCount; currentNeuron++)
         {
-            y += 20;
+            y += ystep;
             context.beginPath();
-            context.arc(x, y, 5, 0, 2*Math.PI);
+            context.arc(x, y, 2, 0, 2*Math.PI);
             context.restore();
             context.fillStyle = "FFFFFF";
             context.stroke();
-            let nextY = 20;
+            let nextY = ystep;
             for (let nextNeuron = 0; nextNeuron < nextNeuronCount; nextNeuron++)
             {
-                nextY += 20;
+                nextY += ystep;
                 context.beginPath();
                 context.moveTo(x,y);
                 context.lineTo(x + 50, nextY);
@@ -135,5 +143,6 @@ function draw(rawtext : string, canvas : HTMLCanvasElement)
         }
         x += 50;
     }
+
 
 }
